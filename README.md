@@ -90,7 +90,7 @@ python exp3_summarization_factors.py
 This experiment investigates factors influencing the accuracy of resource summarization in access control policies using three approaches: direct simplification, pre-trained generalization, and fine-tuned generalization. It also explores the impact of varying the number of enumerated strings on summarization accuracy.
 
 ## Data
-
+- We have made available the entire Dataset used for this project, to add your own:
 - Place your AWS policies dataset in the `Dataset` folder.
 - Generated policies will be saved in the `generated_policies` folder.
 - Results will be saved in CSV format in the `results` folder.
