@@ -116,6 +116,6 @@ If you use this code or our findings in your research, please cite our paper:
 
 ## License
 
-[Include your chosen license information here]
+[MIT License]
 ```
 
