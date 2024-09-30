@@ -40,16 +40,22 @@ This combination allowed us to leverage the strengths of different models tailor
 
 3. Set up your API keys:
    Create a file named `llms.env` in the root directory and add your API keys:
+
+   For more information on how to add api keys and use llms.env, refer to the following urls for
+
+   Anthropic :- [Initial Setup - Anthropic Docs](https://docs.anthropic.com/en/docs/initial-setup)
+   
+   OpenAI :- [Quickstart - OpenAI Platform](https://platform.openai.com/docs/quickstart)
    ```
    ANTHROPIC_API_KEY=your_anthropic_api_key
    OPENAI_API_KEY=your_openai_api_key
    ```
 
-4. Install ABC (Automata-Based model Counter):
+5. Install ABC (Automata-Based model Counter):
    Follow the installation instructions at:
    https://github.com/vlab-cs-ucsb/ABC
 
-5. Install Quacky (Quantitative Access Control Permissiveness Analyzer):
+6. Install Quacky (Quantitative Access Control Permissiveness Analyzer):
    Follow the installation instructions at:
    https://github.com/vlab-cs-ucsb/quacky
 
