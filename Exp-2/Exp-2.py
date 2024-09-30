@@ -8,22 +8,15 @@ from tqdm import tqdm
 import signal
 import re
 import time
-policy_folder = "/home/adarsh/Documents/Policy_Verification_with_LLMS/Dataset"
-quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
-working_directory = "/home/adarsh/Documents/quacky/src/"
-response_file_path = "/home/adarsh/Documents/quacky/src/response.txt"
-p1_not_p2_models_path = "/home/adarsh/Documents/quacky/src/P1_not_P2.models"
-fine_tuning_dataset_path = "/home/adarsh/Documents/Experiments/Fine-tuning/fine-tuning-v2/fine_tuning_dataset.jsonl"
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s',
-                    handlers=[logging.FileHandler("policy_analysis.log"), logging.StreamHandler()])
 
 
-#Initialize Anthropic API client with API Key
+
+# Please include your own API keys here
+
 
 model_name = "claude-3-5-sonnet-20240620"
 
-# Define paths
+
 policy_folder = "/home/adarsh/Documents/Experiments/Dataset"
 quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
 working_directory = "/home/adarsh/Documents/quacky/src/"
@@ -152,22 +145,20 @@ def process_policy(policy_path, size, max_retries=5):
 
     for attempt in range(max_retries):
         try:
-            # Generate strings
+            
             strings = generate_strings(policy_path, size)
             if not strings:
                 raise Exception("Failed to generate strings")
 
-            # Generate regex
             regex = generate_regex(strings)
             if not regex:
                 raise Exception("Failed to generate regex")
 
-            # Run final analysis
             exp2_raw_output = run_final_analysis(policy_path)
             if exp2_raw_output is None or exp2_raw_output == "TIMEOUT":
                 raise Exception("Final analysis failed or timed out")
 
-            # If we reach here, the process was successful
+            
             return {
                 "model_name": model_name,
                 "Original Policy": original_policy,
@@ -182,9 +173,9 @@ def process_policy(policy_path, size, max_retries=5):
             if attempt == max_retries - 1:
                 errors.append(f"Process failed after {max_retries} attempts: {str(e)}")
             else:
-                time.sleep(5)  # Wait for 5 seconds before retrying
+                time.sleep(5) 
 
-    # If we reach here, all attempts have failed
+    
     return {
         "model_name": model_name,
         "Original Policy": original_policy,
@@ -206,18 +197,16 @@ def update_progress(last_processed):
 
 if __name__ == "__main__":
     def sort_key(filename):
-        # Extract the number from the filename
         match = re.search(r'(\d+)', filename)
         if match:
             return int(match.group(1))
-        return 0  # Return 0 if no number found
+        return 0  
 
     policy_files = sorted([f for f in os.listdir(policy_folder) if f.endswith('.json')], key=sort_key)
     total_policies = len(policy_files)
     
-    size = 1000  # You can make this configurable if needed
+    size = 1000  
 
-    # Get the number of policies to process
     while True:
         try:
             num_policies = int(input(f"Enter the number of policies to process (1-{total_policies}) or -1 for all remaining policies: "))
@@ -228,16 +217,14 @@ if __name__ == "__main__":
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
-    # Get the progress
+    
     progress = get_progress()
     start_index = progress["last_processed"]
 
-    # Ensure start_index is within valid range
     start_index = max(0, min(start_index, total_policies - 1))
 
     print(f"Starting from policy number {start_index + 1}")
 
-    # Initialize or load the results DataFrame
     required_columns = [
         "model_name", "Original Policy", "Size", "Regex from llm", "Experiment 2_Analysis", "Errors"
     ]
@@ -247,14 +234,12 @@ if __name__ == "__main__":
     else:
         try:
             result_table = pd.read_csv(result_table_path)
-            # Check if the DataFrame is empty or doesn't have the required columns
+          
             if result_table.empty or not all(col in result_table.columns for col in required_columns):
                 result_table = pd.DataFrame(columns=required_columns)
         except pd.errors.EmptyDataError:
-            # If the file is empty, create a new DataFrame
             result_table = pd.DataFrame(columns=required_columns)
         
-        # Ensure all required columns are present
         for column in set(required_columns) - set(result_table.columns):
             result_table[column] = ""
 
@@ -301,12 +286,10 @@ if __name__ == "__main__":
             'jaccard_denominator': None
         }
 
-        # Extract Policy Analysis
         policy_match = re.search(r'Policy 1.*?lg\(requests\): [\d.]+', analysis, re.DOTALL)
         if policy_match:
             fields['Policy_Analysis'] = policy_match.group(0)
 
-        # Extract other fields
         for field in fields:
             if field != 'Policy_Analysis':
                 match = re.search(rf'{field}\s*:\s*(.*?)(?:\n|$)', analysis)
@@ -315,23 +298,18 @@ if __name__ == "__main__":
 
         return fields
 
-    # Read the CSV file
     df = pd.read_csv(result_table_path, encoding='utf-8')
 
-    # Apply the parsing function to the Experiment 2_Analysis column
     parsed_data = df['Experiment 2_Analysis'].apply(parse_analysis)
 
-    # Create new columns for each field
     for field in parsed_data.iloc[0].keys():
         df[field] = parsed_data.apply(lambda x: x[field] if isinstance(x, dict) else '')
 
-    # Reorder columns
     columns_order = ['model_name', 'Original Policy', 'Size', 'Regex from llm', 'Policy_Analysis'] + \
                     [col for col in df.columns if col not in ['model_name', 'Original Policy', 'Size', 'Regex from llm', 'Policy_Analysis', 'Experiment 2_Analysis']] + \
                     ['Errors']
     df = df[columns_order]
 
-    # Save the processed DataFrame to a new CSV file
     processed_csv_path = os.path.join(os.path.dirname(result_table_path), 'Exp-2.csv')
     df.to_csv(processed_csv_path, index=False, encoding='utf-8')
     logging.info(f"CSV file has been processed and saved as '{processed_csv_path}'")
