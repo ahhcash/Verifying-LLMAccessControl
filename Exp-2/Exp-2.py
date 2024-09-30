@@ -17,14 +17,14 @@ import time
 model_name = "claude-3-5-sonnet-20240620"
 
 
-policy_folder = "/home/adarsh/Documents/Experiments/Dataset"
-quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
-working_directory = "/home/adarsh/Documents/quacky/src/"
-response_file_path = "/home/adarsh/Documents/quacky/src/response.txt"
-result_table_path = "/home/adarsh/Documents/Experiments/Exp-2/multi-string.csv"
-generated_policy_path = "/home/adarsh/Documents/quacky/src/gen_pol.json"
-p1_not_p2_models_path = "/home/adarsh/Documents/quacky/src/P1_not_P2.models"
-progress_file_path = "/home/adarsh/Documents/Experiments/Exp-2/progress.json"
+policy_folder = "Dataset"
+quacky_path = "quacky/src/quacky.py"
+working_directory = "quacky/src/"
+response_file_path = "quacky/src/response.txt"
+result_table_path = "Exp-2/multi-string.csv"
+generated_policy_path = "quacky/src/gen_pol.json"
+p1_not_p2_models_path = "quacky/src/P1_not_P2.models"
+progress_file_path = "Exp-2/progress.json"
 
 def read_policy_file(file_path):
     with open(file_path, 'r') as file:
