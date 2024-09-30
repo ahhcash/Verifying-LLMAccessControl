@@ -18,8 +18,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 model_id = "ft:gpt-4o-mini-2024-07-18:personal::A5b7jUfX"
 
 # Define paths
-policy_folder = "path to Dataset folder"
-quacky_path = "path to quacky folder" # /Documents/quacky/
+policy_folder = "Dataset"
+quacky_path = "quacky/src/quacky.py" # /Documents/quacky/
 working_directory = "quacky/src/"
 response_file_path = "quacky/src/response.txt"
 result_table_path = "Exp-3/multi-string.csv"
