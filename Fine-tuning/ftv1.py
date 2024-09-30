@@ -16,14 +16,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 model_id = "ft:gpt-4o-mini-2024-07-18:personal::9zAPlbm7"
 
 # Define paths
-policy_folder = "/home/adarsh/Documents/Experiments/Dataset/Dataset_mutated"
-quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
-working_directory = "/home/adarsh/Documents/quacky/src/"
-response_file_path = "/home/adarsh/Documents/quacky/src/response.txt"
-result_table_path = "/home/adarsh/Documents/Experiments/Fine-tuning/policy_analysis_fine_tuned.csv"
-generated_policy_path = "/home/adarsh/Documents/quacky/src/gen_pol.json"
-p1_not_p2_models_path = "/home/adarsh/Documents/quacky/src/P1_not_P2.models"
-progress_file_path = "/home/adarsh/Documents/Experiments/Fine-tuning/ft-progress.json"
+policy_folder = "Dataset/Dataset_mutated"
+quacky_path = "quacky/src/quacky.py"
+working_directory = "quacky/src/"
+response_file_path = "quacky/src/response.txt"
+result_table_path = "Fine-tuning/policy_analysis_fine_tuned.csv"
+generated_policy_path = "quacky/src/gen_pol.json"
+p1_not_p2_models_path = "quacky/src/P1_not_P2.models"
+progress_file_path = "Fine-tuning/ft-progress.json"
 
 def read_policy_file(file_path):
     with open(file_path, 'r') as file:
@@ -170,9 +170,9 @@ if __name__ == "__main__":
     policy_files = sorted([f for f in os.listdir(policy_folder) if f.endswith('.json')], key=sort_key)
     total_policies = len(policy_files)
     
-    size = 1000  # You can make this configurable if needed
+    size = 1000 
 
-    # Get the number of policies to process
+    
     while True:
         try:
             num_policies = int(input(f"Enter the number of policies to process (1-{total_policies}) or -1 for all remaining policies: "))
@@ -183,16 +183,14 @@ if __name__ == "__main__":
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
-    # Get the progress
+   
     progress = get_progress()
     start_index = progress["last_processed"]
 
-    # Ensure start_index is within valid range
     start_index = max(0, min(start_index, total_policies - 1))
 
     print(f"Starting from policy number {start_index + 1}")
 
-    # Initialize or load the results DataFrame
     required_columns = [
         "model_name", "Original Policy", "Size", "Regex from llm", "Experiment 2_Analysis", "Errors"
     ]
