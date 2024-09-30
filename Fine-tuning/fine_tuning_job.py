@@ -37,10 +37,10 @@ def monitor_fine_tuning_job(job_id: str):
             print(f"Job status: {job.status}")
             if job.status in ["succeeded", "failed"]:
                 return job
-            time.sleep(60)  # Check every minute
+            time.sleep(60) 
         except Exception as e:
             print(f"Error retrieving job status: {str(e)}")
-            time.sleep(60)  # Wait a bit before retrying
+            time.sleep(60)  
 
 def main():
     # Check if the dataset file exists
