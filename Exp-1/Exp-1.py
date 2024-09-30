@@ -231,15 +231,12 @@ def process_policy(policy_path, size):
 if __name__ == "__main__":
     policy_files = sorted([f for f in os.listdir(policy_folder) if f.endswith('.json')], key=lambda x: int(x.split('.')[0]))[:41]  # Sort and limit to 0-40
     
-    size = 500  # You can make this configurable if needed
+    size = 500 
 
-    # Get the progress
     progress = get_progress()
     start_index = progress["last_processed"]
 
     print(f"Starting from policy number {start_index}")
-
-    # Initialize or load the results DataFrame
     required_columns = [
         "Policy Number", "model_name", "Original Policy", "Generated Policy", "Policy Description",
         "Size", "Regex from llm (P1_not_P2)", "Regex from llm (not_P1_P2)", "Final Analysis", "Total Processing Time (seconds)"
