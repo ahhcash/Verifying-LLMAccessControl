@@ -17,14 +17,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 model_id = "ft:gpt-4o-mini-2024-07-18:personal::A5b7jUfX"
 
 # Define paths
-policy_folder = "/home/adarsh/Documents/Experiments/Dataset"
-quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
-working_directory = "/home/adarsh/Documents/quacky/src/"
-response_file_path = "/home/adarsh/Documents/quacky/src/response.txt"
-result_table_path = "/home/adarsh/Documents/Experiments/Fine-tuning/fine-tuning-v2/policy_analysis_fine_tuned.csv"
-generated_policy_path = "/home/adarsh/Documents/quacky/src/gen_pol.json"
-p1_not_p2_models_path = "/home/adarsh/Documents/quacky/src/P1_not_P2.models"
-progress_file_path = "/home/adarsh/Documents/Experiments/Fine-tuning/fine-tuning-v2/ft-progress.json"
+policy_folder = "Dataset"
+quacky_path = "quacky/src/quacky.py"
+working_directory = "quacky/src/"
+response_file_path = "quacky/src/response.txt"
+result_table_path = "Fine-tuning/fine-tuning-v2/policy_analysis_fine_tuned.csv"
+generated_policy_path = "quacky/src/gen_pol.json"
+p1_not_p2_models_path = "quacky/src/P1_not_P2.models"
+progress_file_path = "Fine-tuning/fine-tuning-v2/ft-progress.json"
 
 def read_policy_file(file_path):
     with open(file_path, 'r') as file:
@@ -95,7 +95,6 @@ def run_final_analysis(policy_path, timeout=300):  # 5 minutes timeout
     
     try:
         result = subprocess.run(command, cwd=working_directory, capture_output=True, text=True)
-        # Cancel alarm
         signal.alarm(0)
         
         logging.info("Quacky Final Analysis Output:")
@@ -118,7 +117,7 @@ def process_policy(policy_path, size):
     regex = ""
     exp2_raw_output = ""
 
-    # Extract policy number from the filename
+
     policy_number = os.path.basename(policy_path).split('.')[0]
 
     try:
@@ -180,7 +179,6 @@ if __name__ == "__main__":
     
     size = 1000  # You can make this configurable if needed
 
-    # Get the number of policies to process
     while True:
         try:
             num_policies = int(input(f"Enter the number of policies to process (1-{total_policies}) or -1 for all remaining policies: "))
@@ -191,16 +189,16 @@ if __name__ == "__main__":
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
-    # Get the progress
+
     progress = get_progress()
     start_index = progress["last_processed"]
 
-    # Ensure start_index is within valid range
+
     start_index = max(0, min(start_index, total_policies - 1))
 
     print(f"Starting from policy number {start_index + 1}")
 
-    # Initialize or load the results DataFrame
+
     required_columns = [
         "Policy Number", "model_name", "Original Policy", "Size", "Regex from llm", 
         "Experiment 2_Analysis", "Errors", "Processing Time (s)"
