@@ -68,7 +68,6 @@ def monitor_fine_tuning_job(job_id: str):
             time.sleep(60)  # Wait a bit before retrying
 
 def main():
-    # Check if the dataset file exists
     if not dataset_path.exists():
         print(f"Error: The file {dataset_path} does not exist.")
         return
