@@ -7,7 +7,7 @@ import tiktoken
 # Initialize the client with the API key
 
 
-# Path to your new JSONL file
+# Path to the JSONL file
 file_path = Path("/home/adarsh/Documents/Experiments/Fine-tuning/fine-tuning-v2/fine_tuning_dataset.jsonl")
 
 # Initialize the tokenizer
@@ -91,7 +91,6 @@ while status not in ["succeeded", "failed"]:
 
 if status == "succeeded":
     print("Fine-tuning completed successfully!")
-    # You can now use the fine-tuned model
     fine_tuned_model = job_response.fine_tuned_model
     print(f"Fine-tuned model ID: {fine_tuned_model}")
 else:
