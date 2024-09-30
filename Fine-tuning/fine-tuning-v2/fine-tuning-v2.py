@@ -13,13 +13,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Initialize Anthropic client with api key
 model_name = "claude-3-5-sonnet-20240620"
 
-policy_folder = "/home/adarsh/Documents/Policy_Verification_with_LLMS/Dataset"
-quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
-working_directory = "/home/adarsh/Documents/quacky/src/"
-response_file_path = "/home/adarsh/Documents/quacky/src/response.txt"
-p1_not_p2_models_path = "/home/adarsh/Documents/quacky/src/P1_not_P2.models"
-fine_tuning_dataset_path = "/home/adarsh/Documents/Experiments/Fine-tuning/fine-tuning-v2/fine_tuning_dataset.jsonl"
-progress_file_path = "/home/adarsh/Documents/Experiments/Fine-tuning/fine-tuning-v2/progress.json"
+policy_folder = "Dataset"
+quacky_path = "quacky.py"
+working_directory = "quacky/src/"
+response_file_path = "quacky/src/response.txt"
+p1_not_p2_models_path = "quacky/src/P1_not_P2.models"
+fine_tuning_dataset_path = "Fine-tuning/fine-tuning-v2/fine_tuning_dataset.jsonl"
+progress_file_path = "Fine-tuning/fine-tuning-v2/progress.json"
 
 def generate_strings(policy_path, size=1000):
     command = [
@@ -193,7 +193,6 @@ def main():
         progress["processed_policies"].append(policy_file)
         save_progress(progress)
 
-        # Periodically save the dataset
         if len(fine_tuning_data) % 10 == 0:  # Save every 10 new entries
             with open(fine_tuning_dataset_path, 'w') as f:
                 for item in fine_tuning_data:
