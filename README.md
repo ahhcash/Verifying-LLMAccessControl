@@ -32,10 +32,6 @@ This combination allowed us to leverage the strengths of different models tailor
 ## Installation
 
 1. Clone this repository:
-   ```
-   git clone https://github.com/your-username/verisynth.git
-   cd verisynth
-   ```
 
 2. Install the required dependencies:
    ```
@@ -63,28 +59,30 @@ This combination allowed us to leverage the strengths of different models tailor
 
 ### Experiment 1: Policy Generation and Comparison
 
-To run the policy generation and comparison experiment:
+To run the policy generation and comparison experiment, open folder Exp-1 :
+run command:-
 
 ```
-python exp1_policy_generation.py
+python Exp-1.py
 ```
 
 ### Experiment 2: Resource Summarization
 
-To run the resource summarization experiment:
+To run the resource summarization experiment, open folder Exp-2:
+run command:-
 
 ```
-python exp2_resource_summarization.py
+python Exp-2.py
 ```
 
 This experiment evaluates Verisynth's ability to generate concise and accurate regular expressions (regexes) that summarize the resources allowed by access control policies. It assesses how well Verisynth can abstract and represent complex policy permissions in a compact form, measuring factors such as regex complexity, processing time, and semantic accuracy (via Jaccard similarity).
 
 ### Experiment 3: Factors Affecting Summarization Accuracy
 
-To run the experiment on factors affecting summarization accuracy:
+To run the experiment on factors affecting summarization accuracy, open folder Exp-3:
 
 ```
-python exp3_summarization_factors.py
+python Exp-3.py
 ```
 
 This experiment investigates factors influencing the accuracy of resource summarization in access control policies using three approaches: direct simplification, pre-trained generalization, and fine-tuned generalization. It also explores the impact of varying the number of enumerated strings on summarization accuracy.
@@ -92,8 +90,7 @@ This experiment investigates factors influencing the accuracy of resource summar
 ## Data
 - We have made available the entire Dataset used for this project, to add your own:
 - Place your AWS policies dataset in the `Dataset` folder.
-- Generated policies will be saved in the `generated_policies` folder.
-- Results will be saved in CSV format in the `results` folder.
+- Results will be saved in CSV format in the respective Experiment folder.
 
 ## Replicating Results
 
