@@ -20,16 +20,16 @@ gpt_model_name = "ft:gpt-4o-mini-2024-07-18:personal::A5b7jUfX"
 claude_model_name = "claude-3-5-sonnet-20240620"
 
 # Define paths
-policy_folder = "/home/adarsh/Documents/Experiments/Dataset"
-quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
-working_directory = "/home/adarsh/Documents/quacky/src/"
-response_file_path = "/home/adarsh/Documents/quacky/src/response.txt"
-response2_file_path = "/home/adarsh/Documents/quacky/src/response2.txt"
-result_table_path = "/home/adarsh/Documents/Experiments/Exp-1/single_policy_dual_analysis.csv"
-generated_policy_path = "/home/adarsh/Documents/quacky/src/gen_pol.json"
-p1_not_p2_models_path = "/home/adarsh/Documents/quacky/src/P1_not_P2.models"
-not_p1_p2_models_path = "/home/adarsh/Documents/quacky/src/not_P1_P2.models"
-progress_file_path = "/home/adarsh/Documents/Experiments/Exp-1/single_policy_dual_progress.json"
+policy_folder = "Dataset"
+quacky_path = "quacky/src/quacky.py"
+working_directory = "quacky/src/"
+response_file_path = "quacky/src/response.txt"
+response2_file_path = "quacky/src/response2.txt"
+result_table_path = "Exp-1/single_policy_dual_analysis.csv"
+generated_policy_path = "quacky/src/gen_pol.json"
+p1_not_p2_models_path = "quacky/src/P1_not_P2.models"
+not_p1_p2_models_path = "quacky/src/not_P1_P2.models"
+progress_file_path = "Exp-1/single_policy_dual_progress.json"
 
 def read_policy_file(file_path):
     with open(file_path, 'r') as file:
