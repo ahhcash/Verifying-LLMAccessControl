@@ -19,11 +19,11 @@ model_name = "claude-3-5-sonnet-20240620"
 
 # File paths (using the original code's paths)
 policy_folder = "/home/adarsh/Documents/Experiments/Dataset"
-quacky_path = "/home/adarsh/Documents/quacky/src/quacky.py"
-working_directory = "/home/adarsh/Documents/quacky/src/"
-response_file_path = "/home/adarsh/Documents/quacky/src/response.txt"
-progress_file_path = "/home/adarsh/Documents/Experiments/Simplification-Exp/s_progress.json"
-result_csv_path = "/home/adarsh/Documents/Experiments/Simplification-Exp/simplify.csv"
+quacky_path = "quacky/src/quacky.py"
+working_directory = "quacky/src/"
+response_file_path = "quacky/src/response.txt"
+progress_file_path = "Simplification-Exp/s_progress.json"
+result_csv_path = "Simplification-Exp/simplify.csv"
 
 def generate_regex_from_dfa(policy_path):
     command = [
@@ -121,7 +121,6 @@ def parse_analysis(analysis):
     return fields
 
 def process_policy(policy_path):
-    # Generate regex from DFA using Quacky
     regex_from_dfa = generate_regex_from_dfa(policy_path)
     if not regex_from_dfa:
         logging.error("Failed to generate regex from DFA")
@@ -133,7 +132,6 @@ def process_policy(policy_path):
         logging.error("Failed to simplify regex using Claude")
         return None
 
-    # Write simplified regex to file
     with open(response_file_path, 'w') as file:
         file.write(simplified_regex)
 
@@ -183,18 +181,18 @@ def write_results_to_csv(results):
         "jaccard_numerator", "jaccard_denominator"
     ]
 
-    # Check if the CSV file already exists
+
     file_exists = os.path.isfile(result_csv_path)
 
     # Open the CSV file in append mode
     with open(result_csv_path, 'a', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=columns)
 
-        # Write the header only if the file is newly created
+  
         if not file_exists:
             writer.writeheader()
 
-        # Write the results
+      
         for result in results:
             row = {
                 "Policy": result["Policy"],
@@ -216,7 +214,6 @@ def main():
     policy_files = sorted([f for f in os.listdir(policy_folder) if f.endswith('.json')])
     total_policies = len(policy_files)
 
-    # Get the number of policies to process
     while True:
         try:
             num_policies = int(input(f"Enter the number of policies to process (1-{total_policies}) or -1 for all remaining policies: "))
@@ -227,11 +224,9 @@ def main():
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
-    # Get the progress
     progress = get_progress()
     start_index = progress["last_processed"]
 
-    # Ensure start_index is within valid range
     start_index = max(0, min(start_index, total_policies - 1))
 
     print(f"Starting from policy number {start_index + 1}")
@@ -252,7 +247,6 @@ def main():
 
         update_progress(i + 1)
 
-        # Write results to CSV after each policy is processed
         write_results_to_csv([result])
 
     logging.info("Processing complete. Results saved to simplify.csv")
