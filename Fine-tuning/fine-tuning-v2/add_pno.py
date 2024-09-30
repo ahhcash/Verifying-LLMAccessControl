@@ -13,12 +13,11 @@ def add_policy_number_column(input_file, output_file, dataset_path):
         reader = csv.reader(infile)
         writer = csv.writer(outfile)
 
-        # Read the header and add 'Policy Number' at the beginning
+    
         header = next(reader)
         new_header = ['Policy Number'] + header
         writer.writerow(new_header)
 
-        # Process each row, adding the policy number
         for row in reader:
             original_policy = row[1]  # Assuming "Original Policy" is the second column
             matching_policy = None
